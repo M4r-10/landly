@@ -10,6 +10,8 @@ app.use(cors({origin: "*", methods: ["GET", "POST", "PUT", "DELETE"],
 
 app.use(express.json());
 
+ 
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads"), {}));
 
 const PORT = process.env.PORT || 5000;
