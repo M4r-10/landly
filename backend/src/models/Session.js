@@ -23,6 +23,6 @@ const sessionSchema = new mongoose.Schema({
         ref: "Question"}],
     }, { timestamps: true });
 
-const Session = mongoose.model("Session", sessionSchema)
+const Session = mongoose.model("Session", sessionSchema);
 
-module.export = Session 
+module.export = Session;
