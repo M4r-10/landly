@@ -26,7 +26,7 @@ async function registerUser(req, res) {
             name, 
             email,
             password: hashedPassword,
-            profileImageUrl, 
+            profileImageUrl: generateToken
         });
 
         res.status(201).json({
@@ -40,3 +40,43 @@ async function registerUser(req, res) {
         res.status(500).json({message: "Server error", error: error.message});
     }
 };
+
+// responsible for logging in users
+async function loginUser(req, res) {
+    try {
+        const {email, password} = req.body;
+        
+        // Checks if user exists with the given email
+        const user = await User.findOne({email});
+        if (!user) {
+            return res.status(500).json({message: "Invalid email or password"});
+        }
+
+
+        // Checks if the entered password matches the password associated with the user email
+        const doesMatch = await bcrypt.compare(password, user.password);
+        if (!doesMatch) {
+            return res.status(500).json({message: "Invalid email or password"});
+        }
+
+        res.json({
+            _id: user._id,
+            name: user.name, 
+            email: user.email,
+            profileImageUrl: user.profileImageUrl,
+            token: generateToken(user._id)
+        });
+    } catch (error) {
+        res.status(500).json({message: "Server error", error: error.message});
+    }
+};
+
+async function getUserProfile(req, res) {
+    try {
+
+    } catch (error) {
+        res.status(500).json({message: "Server error", error: error.message});
+    }
+};
+
+module.exports = {generateToken, registerUser}
