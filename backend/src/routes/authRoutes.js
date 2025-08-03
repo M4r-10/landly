@@ -8,10 +8,4 @@ router.post("/register", registerUser)
 router.post("/login", loginUser)
 router.get("/profile", validation, getUserProfile)
 
-
-
-
-
-
-
 module.exports = router 
